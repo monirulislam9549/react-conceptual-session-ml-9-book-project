@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.badge {
+    @apply inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-yellow-400
+}
+
+.active {
+    @apply font-medium tracking-wide text-blue-700 transition-colors duration-200
+}
+
+.default {
+    @apply font-medium tracking-wide text-gray-700 transition-colors duration-200
+}
