@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
 
 const BookDetails = () => {
+    const navigate = useNavigation()
+    if (navigate.state === 'loading') {
+        return <Spinner></Spinner>
+    }
+
     const bookData = useLoaderData();
     const [fold, setFold] = useState(true)
     // console.log(book);
-    const { image, title, desc, authors, publisher, year, rating, url, price } = bookData
+    const { image, title, desc, authors, publisher, year, rating, url, price } = bookData;
 
     return (
         <div className='px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20'>
@@ -31,10 +37,22 @@ const BookDetails = () => {
                     <p className=' text-gray-900'>Publisher: {publisher}</p>
                     <p className=' text-gray-900'>Year: {year}</p>
                     <p className='mb-5 text-gray-900'>Rating: {rating}</p>
-                    <p className=' text-gray-500'>{desc}.....</p>
+                    {fold ? (
+                        <>
+                            <p className=' text-gray-500'>{desc.slice(0, 100)}.....</p>
+                            <p className='cursor-pointer text-blue-600 ' onClick={() => setFold(!fold)}>Read More</p>
+                        </>
+                    ) : (
+                        <>
+                            <p className=' text-gray-500'>{desc}</p>
+                            <p className='cursor-pointer text-blue-600 ' onClick={() => setFold(!fold)}>Read Less</p>
+                        </>
+                    )}
+
+
 
                     <div className='flex gap-5 mt-8 items-center'>
-                        <a href={url} target='_blank' className='btn'>
+                        <a href={url} target='_blank' className='inline-flex items-center h-12 px-6 mb-3 font-medium text-white transition duration-200 rounded shadow-md  md:mb-0 bg-blue-400 hover:bg-blue-700'>
                             Buy Now
                         </a>
                         <p className='items-center font-extrabold text-gray-600 '>

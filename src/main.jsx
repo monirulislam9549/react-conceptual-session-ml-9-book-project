@@ -10,11 +10,14 @@ import About from './components/About/About';
 import Home from './components/Home/Home';
 import Books from './components/Books/Books';
 import BookDetails from './components/BookDetails/BookDetails';
+import Spinner from './components/Spinner/Spinner';
+import NotFound from './components/NotFound/NotFound';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App></App>,
+    errorElement: <NotFound></NotFound>,
     children: [
       {
         path: '/',
@@ -33,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <About></About>
+      },
+      {
+        path: 'loader',
+        element: <Spinner></Spinner>
       },
 
     ]
